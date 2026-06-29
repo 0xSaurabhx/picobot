@@ -108,7 +108,7 @@ func NewAgentLoop(b *chat.Hub, provider providers.LLMProvider, model string, max
 	}
 
 	sm := session.NewSessionManager(workspace)
-	ctx := NewContextBuilder(workspace, memory.NewLLMRanker(provider, model), 5)
+	ctx := NewContextBuilder(workspace, memory.NewSimpleRanker(), 5)
 	mem := memory.NewMemoryStoreWithWorkspace(workspace, 100)
 	// register memory tools (all share the same store instance)
 	reg.Register(tools.NewWriteMemoryTool(mem))
@@ -155,6 +155,11 @@ func NewAgentLoop(b *chat.Hub, provider providers.LLMProvider, model string, max
 // SetToolActivityIndicator controls whether the feedback of tool progress
 func (a *AgentLoop) SetToolActivityIndicator(enabled bool) {
 	a.enableToolActivity = enabled
+}
+
+// SetMemoryRanker overrides the default memory ranker.
+func (a *AgentLoop) SetMemoryRanker(ranker memory.Ranker) {
+	a.context.ranker = ranker
 }
 
 // Close shuts down all MCP server connections.

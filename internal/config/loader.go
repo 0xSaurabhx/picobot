@@ -47,6 +47,9 @@ func applyEnvOverrides(cfg *Config) {
 		b := v != "false" && v != "0" && v != "False" && v != "FALSE"
 		cfg.Agents.Defaults.EnableToolActivityIndicator = &b
 	}
+	if v := os.Getenv("PICOBOT_MEMORY_RANKER"); v != "" {
+		cfg.Agents.Defaults.MemoryRanker = v
+	}
 	if v := os.Getenv("TELEGRAM_BOT_TOKEN"); v != "" {
 		cfg.Channels.Telegram.Token = v
 		cfg.Channels.Telegram.Enabled = true

@@ -36,6 +36,7 @@ type AgentDefaults struct {
 	HeartbeatIntervalS          int     `json:"heartbeatIntervalS"`
 	RequestTimeoutS             int     `json:"requestTimeoutS"`
 	EnableToolActivityIndicator *bool   `json:"enableToolActivityIndicator,omitempty"`
+	MemoryRanker                string  `json:"memoryRanker,omitempty"`
 }
 
 type ChannelsConfig struct {
